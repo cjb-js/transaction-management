@@ -21,7 +21,7 @@
 ## 运行项目
 
 ## 本地运行
-##### 1. 克隆项目git clone https://github.com/repo-name/transaction-management.git
+##### 1. 克隆项目git clone https://github.com/cjb-js/transaction-management.git
 ```
 cd transaction-management
 ```
@@ -44,6 +44,15 @@ mvn clean package  dockerfile:build
 ### 2. 运行 Docker 容器
 ```
 docker run cjb/transaction-management-service:0.1
+```
+
+## 访问程序
+打开浏览器，输入如下url即可打开Transaction管理页面。
+
+为方便浏览，程序在启动时会预先创建部分Transaction。
+
+```
+http://your-machine-ip:8090/
 ```
 
 
