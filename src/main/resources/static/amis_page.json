@@ -1,0 +1,368 @@
+{
+  "type": "page",
+  "title": "Transaction管理",
+  "body": [
+    {
+      "type": "crud",
+      "draggable": true,
+      "api": "/transactions",
+      "perPage": 15,
+      "keepItemSelectionOnPageChange": true,
+      "maxKeepItemSelectionLength": 11,
+      "labelTpl": "${id} ${engine}",
+      "orderBy": "id",
+      "orderDir": "asc",
+      "filter": {
+        "title": "条件搜索",
+        "submitText": "",
+        "body": [
+          {
+            "type": "input-text",
+            "name": "keywords",
+            "placeholder": "通过关键字搜索",
+            "addOn": {
+              "label": "搜索",
+              "type": "submit",
+              "id": "u:10eec3f813e6"
+            },
+            "id": "u:319f61c75b64"
+          }
+        ],
+        "id": "u:e66934b3dd4d",
+        "actions": [
+          {
+            "type": "submit",
+            "label": "提交",
+            "primary": true,
+            "id": "u:a188940e1806"
+          }
+        ],
+        "feat": "Insert",
+        "labelAlign": "left"
+      },
+      "bulkActions": [
+        {
+          "label": "批量删除",
+          "actionType": "ajax",
+          "api": "delete:/amis/api/sample/${ids|raw}",
+          "confirmText": "确定要批量删除?",
+          "id": "u:4bb288f0213e",
+          "visible": false
+        },
+        {
+          "label": "批量修改",
+          "actionType": "dialog",
+          "dialog": {
+            "title": "批量编辑",
+            "name": "sample-bulk-edit",
+            "body": {
+              "type": "form",
+              "api": "/amis/api/sample/bulkUpdate2",
+              "body": [
+                {
+                  "type": "hidden",
+                  "name": "ids"
+                },
+                {
+                  "type": "input-text",
+                  "name": "engine",
+                  "label": "Engine"
+                }
+              ]
+            },
+            "type": "dialog",
+            "actionType": "dialog"
+          },
+          "id": "u:d4933724770e",
+          "visible": false
+        }
+      ],
+      "quickSaveApi": "/amis/api/sample/bulkUpdate",
+      "quickSaveItemApi": "/amis/api/sample/$id",
+      "filterTogglable": true,
+      "headerToolbar": [
+        "filter-toggler",
+        "bulkActions",
+        {
+          "type": "tpl",
+          "tpl": "<p>当前有 ${count} 条数据。</p>",
+          "className": "v-middle",
+          "id": "u:031cd987b74a"
+        },
+        {
+          "type": "link",
+          "href": "https://www.baidu.com",
+          "body": "百度一下",
+          "htmlTarget": "_parent",
+          "className": "v-middle",
+          "id": "u:9c556e2f5c59",
+          "visible": false
+        },
+        {
+          "type": "columns-toggler",
+          "align": "right"
+        },
+        {
+          "type": "drag-toggler",
+          "align": "right"
+        },
+        {
+          "type": "pagination",
+          "align": "right"
+        }
+      ],
+      "footerToolbar": [
+        "statistics",
+        "switch-per-page",
+        "pagination"
+      ],
+      "columns": [
+        {
+          "name": "id",
+          "label": "ID",
+          "sortable": true,
+          "type": "text",
+          "toggled": true,
+          "remark": "",
+          "id": "u:fa7143b10a61",
+          "placeholder": "-"
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "sortable": true,
+          "searchable": true,
+          "popOver": {
+            "body": "Popover 内容：${platform}",
+            "trigger": "hover"
+          },
+          "popOverEnableOn": "this.id === 1",
+          "type": "text",
+          "toggled": true,
+          "id": "u:e61e77422d2d",
+          "placeholder": "-"
+        },
+        {
+          "name": "amount",
+          "label": "Amount",
+          "sortable": true,
+          "searchable": true,
+          "popOver": {
+            "body": "Popover 内容：${platform}",
+            "trigger": "hover"
+          },
+          "popOverEnableOn": "this.id === 1",
+          "type": "text",
+          "toggled": true,
+          "id": "u:caa153693995",
+          "placeholder": "-"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": 100,
+          "buttons": [
+            {
+              "type": "button",
+              "icon": "fa fa-pencil",
+              "actionType": "drawer",
+              "tooltip": "编辑",
+              "id": "u:cb11d596cc88",
+              "drawer": {
+                "type": "drawer",
+                "position": "left",
+                "size": "lg",
+                "title": "编辑",
+                "body": [
+                  {
+                    "type": "form",
+                    "name": "sample-edit-form",
+                    "data": {},
+                    "api": {
+                      "method": "put",
+                      "url": "/transactions/$id",
+                      "messages": {
+                        "success": "成功了-${env}"
+                      },
+                      "data": {
+                        "&": "$$"
+                      },
+                      "requestAdaptor": "",
+                      "adaptor": ""
+                    },
+                    "body": [
+                      {
+                        "type": "input-text",
+                        "name": "id",
+                        "label": "ID",
+                        "required": true,
+                        "id": "u:24d2c898e0a8",
+                        "readOnly": true
+                      },
+                      {
+                        "type": "divider",
+                        "id": "u:a74ab194f479"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "name",
+                        "label": "Name",
+                        "required": true,
+                        "id": "u:4530641056b8"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "amount",
+                        "label": "Amount",
+                        "id": "u:e0d9d9c3fb28",
+                        "required": true,
+                        "validations": {
+                          "isInt": true
+                        }
+                      },
+                      {
+                        "type": "divider",
+                        "id": "u:cdc22eebde2d"
+                      }
+                    ],
+                    "id": "u:afb0fe1084d2",
+                    "actions": [
+                      {
+                        "type": "submit",
+                        "label": "提交",
+                        "primary": true
+                      }
+                    ],
+                    "feat": "Insert",
+                    "dsType": "api",
+                    "labelAlign": "left"
+                  }
+                ],
+                "actionType": "drawer",
+                "id": "u:906a061a647d",
+                "resizable": false
+              }
+            },
+            {
+              "type": "button",
+              "icon": "fa fa-times text-danger",
+              "actionType": "ajax",
+              "tooltip": "删除",
+              "confirmText": "您确认要删除?",
+              "api": "delete:/transactions/$id",
+              "id": "u:81a47096dde6"
+            }
+          ],
+          "toggled": true,
+          "id": "u:a3ea5e8f43ae",
+          "placeholder": "-"
+        }
+      ],
+      "id": "u:16f54f01d336",
+      "perPageAvailable": [
+        5,
+        10,
+        20,
+        50,
+        100
+      ],
+      "messages": {}
+    }
+  ],
+  "remark": "",
+  "toolbar": [
+    {
+      "type": "button",
+      "actionType": "dialog",
+      "label": "新增",
+      "icon": "fa fa-plus pull-left",
+      "primary": true,
+      "dialog": {
+        "type": "dialog",
+        "title": "新增",
+        "body": [
+          {
+            "type": "form",
+            "name": "sample-edit-form",
+            "api": {
+              "method": "post",
+              "url": "/transactions",
+              "requestAdaptor": "",
+              "adaptor": "",
+              "messages": {}
+            },
+            "body": [
+              {
+                "type": "input-text",
+                "name": "name",
+                "label": "Name",
+                "required": true,
+                "id": "u:389bc52ebc74"
+              },
+              {
+                "type": "input-text",
+                "name": "amount",
+                "label": "Amount",
+                "required": true,
+                "id": "u:3d2c96367d7c",
+                "validations": {
+                  "isInt": true
+                }
+              },
+              {
+                "type": "divider",
+                "id": "u:525081243312"
+              }
+            ],
+            "id": "u:81d1facd204c",
+            "actions": [
+              {
+                "type": "submit",
+                "label": "提交",
+                "primary": true
+              }
+            ],
+            "feat": "Insert",
+            "dsType": "api",
+            "labelAlign": "left"
+          }
+        ],
+        "actionType": "dialog",
+        "id": "u:9a610f9d704a",
+        "actions": [
+          {
+            "type": "button",
+            "actionType": "cancel",
+            "label": "取消",
+            "id": "u:684fb600485d"
+          },
+          {
+            "type": "button",
+            "actionType": "confirm",
+            "label": "确定",
+            "primary": true,
+            "id": "u:d084557f247e"
+          }
+        ],
+        "showCloseButton": true,
+        "closeOnOutside": false,
+        "closeOnEsc": false,
+        "showErrorMsg": true,
+        "showLoading": true,
+        "draggable": false
+      },
+      "id": "u:e2a292eac9f6"
+    }
+  ],
+  "id": "u:a0f227706fb4",
+  "definitions": {},
+  "asideResizor": false,
+  "pullRefresh": {
+    "disabled": true
+  },
+  "regions": [
+    "body",
+    "toolbar",
+    "header"
+  ]
+}

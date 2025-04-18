@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-transaction-app
+  labels:
+    app: bank-transaction-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bank-transaction-app
+  template:
+    metadata:
+      labels:
+        app: bank-transaction-app
+    spec:
+      containers:
+        - name: bank-transaction
+          image: bank-transaction-management:0.0.1-SNAPSHOT
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: bank-transaction-config

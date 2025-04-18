@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: transaction-management-service
+  profiles:
+    active: local
+  servlet:
+    multipart:
+      max-file-size: 2000MB #限制单一文件大小
+      max-request-size: 2000MB #限制最大上传文件大小
+
+  # 国际化文件路径配置
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    fallbackToSystemLocale: false
+
+
+
+
+
+server:
+  servlet:
+    context-path: /
+  port: 8090
+  max-http-header-size: 100KB 
+
+  
+
+
+logging:
+  level:
+    '[com.cjbbank.transaction.service]': debug
+        
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [${spring.application.name}] [%thread] %logger{50} - %msg%n"    
+
+springdoc:
+  api-docs:
+    path: /${spring.application.name}/v3/api-docs
+
+
+
+application:
+  apiPrefix: ${DV_CM_API_PREFIX_FULL:https://ibm.dv-dev.dvsaas11.fyre.ibm.com/api/v2}
+  config:
+    version: ${DV_CM_VERSION:v2.0.0}
+    
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
