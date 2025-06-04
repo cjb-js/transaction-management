@@ -1,12 +1,42 @@
 pipeline {
     agent {
-        docker { image 'node:22.16.0-alpine3.21' }
+        docker { 
+            image 'maven:3.8.6-openjdk-11'  // 使用官方Maven镜像，包含JDK11
+            args '-v $HOME/.m2:/root/.m2'   // 挂载本地Maven仓库缓存，加速构建
+        }
     }
+    
+    environment {
+        // 可以在这里定义环境变量
+        MAVEN_OPTS = "-Dmaven.repo.local=/root/.m2/repository"
+    }
+    
     stages {
-        stage('Test') {
+        stage('Checkout') {
             steps {
-                sh 'node --eval "console.log(process.platform,process.env.CI)"'
+                // 从GitHub拉取代码
+                git branch: 'main', changelog: false, credentialsId: 'GITUSER', url: 'https://github.com/cjb-js/transaction-management.git'
             }
         }
+        
+        stage('Build') {
+            steps {
+                // 使用Maven进行清理和打包
+                sh 'mvn clean package -DskipTests'  // 跳过测试以加快构建
+                
+                // 如果需要运行测试，可以使用：
+                // sh 'mvn clean verify'
+            }
+            
+            post {
+                // 构建成功后处理
+                success {
+                    // 归档构建产物
+                    archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                }
+            }
+        }
+        
+
     }
 }
