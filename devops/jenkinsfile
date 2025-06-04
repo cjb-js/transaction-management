@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker { 
-            image 'maven:3.8.6-openjdk-11'  // 使用官方Maven镜像，包含JDK11
+            image 'maven:3.8.6-openjdk-17'  // 使用官方Maven镜像，包含JDK11
             args '-v $HOME/.m2:/root/.m2'   // 挂载本地Maven仓库缓存，加速构建
         }
     }
